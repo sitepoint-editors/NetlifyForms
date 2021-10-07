@@ -1,59 +1,53 @@
 import './form.css'
-import {Component} from 'react'
+import {useState} from 'react'
 
 const encode = (data) => {
   return Object.keys(data)
     .map(key => encodeURIComponent(key) + "=" + encodeURIComponent(data[key])).join("&");
 }
 
-export default class Form extends Component{
-  constructor(props){
-    super(props)
-    this.state = { name: "", email: "", message: "" }
-  }
+export default function Form (){
+  const [state, setState] = useState({name: "", email: "", message: "" })
+  
+  const handleChange = e =>
+    setState({...state, [e.target.name]: e.target.value })
 
-  handleChange = e =>
-    this.setState({ [e.target.name]: e.target.value })
-
-  handleSubmit = e => {
+  const handleSubmit = e => {
     fetch("/", {
       method: "POST",
       headers: { "Content-Type": "application/x-www-form-urlencoded" },
-      body: encode({ "form-name": "contactForm", ...this.state })
+      body: encode({ "form-name": "contactForm", ...state })
     })
       .then(() => alert("Success!"))
       .catch(error => alert(error))
     e.preventDefault()
   }
 
-  render() {
-    const { name, email, message } = this.state
-    return (
-      <form 
-        className="contactForm" 
-        onSubmit={this.handleSubmit}>
-        <input 
-          type='text' 
-          name='name' 
-          value={name}
-          placeholder='Enter your name'
-          onChange={this.handleChange} />
-  
-        <input 
-          type='email' 
-          name='email' 
-          value={email}
-          placeholder='Enter your email'
-          onChange={this.handleChange} />
-  
-        <textarea 
-          name="message" 
-          placeholder='Messaage'
-          value={message}
-          onChange={this.handleChange}></textarea>
-  
-        <button type="submit">Submit</button>
-      </form>
-    )
-  }
+  return (
+    <form 
+      className="contactForm" 
+      onSubmit={handleSubmit}>
+
+      <input 
+        type='text' 
+        name='name' 
+        value={state.name}
+        placeholder='Enter your name'
+        onChange={handleChange} />
+
+      <input 
+        type='email' 
+        name='email' 
+        value={state.email}
+        placeholder='Enter your email'
+        onChange={handleChange} />
+
+      <textarea 
+        name="message" 
+        placeholder='Messaage'
+        value={state.message}
+        onChange={handleChange}></textarea>
+      <button type="submit">Submit</button>
+    </form>
+  )
 }
