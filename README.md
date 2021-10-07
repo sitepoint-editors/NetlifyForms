@@ -1,6 +1,11 @@
-# Getting Started with Create React App
+# Add a Contact Form to a React App with Netlify Forms
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+Here i create three branches
+- netlifyforms_with_stateless_form
+- netlifyforms_with_class-based
+- netlifyforms_with_hooks
+
+These branches contain the implementation of the three different integrations with Netlify Forms in the article.
 
 ## Available Scripts
 
