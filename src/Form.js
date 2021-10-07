@@ -5,7 +5,8 @@ export default function Form() {
     <form 
       method="POST" 
       name='contactform' 
-      className='contactForm'>
+      className='contactForm'
+      action='/confirmation-page'>
 
       <input 
         type="hidden" 
